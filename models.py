@@ -9,8 +9,7 @@ class VerdictEnum(str, Enum):
 
 class CommunityReport(BaseModel):
     url: str
-    title: str
-    date_posted: date = date.today()
+    title: str    
     verdict: VerdictEnum
     meter: int
     summary: str
