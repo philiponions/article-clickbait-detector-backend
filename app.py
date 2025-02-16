@@ -80,6 +80,24 @@ def generate_report(item: URLItem):
 
     return {"response": generated_text}
 
+# Summary post request
+@app.post("/generate-summary/")
+def generate_summary(item: URLItem):
+    content = ""
+
+    sum_prompt = f'''Provide a comprehensive summary of the given article? The summary should cover all the key points and main ideas presented in the original text in an organised format, while also condensing the information into a concise and easy-to-understand format. Please ensure that the summary includes relevant details and examples that support the main ideas, while avoiding any unnecessary information or repetition. The length of the summary should be about 100 words, providing a clear and accurate overview without omitting any important information
+    Article: {content}
+    '''
+    client = genai.Client(api_key="AIzaSyApK9yImqBxE6WOh470g6dxeEbaDkAd6kw")
+    response = client.models.generate_content(
+        model="gemini-2.0-flash", contents=sum_prompt
+    )
+
+    # Extracting response text safely
+    generated_summary = response.text if hasattr(response, "text") else str(response)
+
+    return {"summary": generated_summary}
+
 def convert_object_id(report_dict):
     if "_id" in report_dict:
         report_dict["_id"] = str(report_dict["_id"])
