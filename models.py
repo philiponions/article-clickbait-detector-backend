@@ -9,6 +9,8 @@ class VerdictEnum(str, Enum):
 
 class CommunityReport(BaseModel):
     url: str
+    thumbnail: str
+    website: str
     title: str    
     verdict: VerdictEnum
     meter: int
