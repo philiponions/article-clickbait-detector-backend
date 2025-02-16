@@ -25,6 +25,9 @@ def read_root():
 class URLItem(BaseModel):
     url: str
 
+class ContentItem(BaseModel):
+    content: str
+
 @app.post("/generate-report/")
 def generate_report(item: URLItem):
     
@@ -67,8 +70,7 @@ def generate_report(item: URLItem):
 
 # Summary post request
 @app.post("/generate-summary/")
-def generate_summary(item: URLItem):
-    content = ""
+def generate_summary(content: ContentItem):
 
     sum_prompt = f'''Provide a comprehensive summary of the given article? The summary should cover all the key points and main ideas presented in the original text in an organised format, while also condensing the information into a concise and easy-to-understand format. Please ensure that the summary includes relevant details and examples that support the main ideas, while avoiding any unnecessary information or repetition. The length of the summary should be about 100 words, providing a clear and accurate overview without omitting any important information
     Article: {content}
