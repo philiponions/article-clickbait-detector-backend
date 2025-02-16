@@ -15,3 +15,20 @@ class CommunityReport(BaseModel):
     percentage: int
     explanation: str
     tldr: str
+
+class URLItem(BaseModel):
+    url: str
+
+class ContentItem(BaseModel):
+    content: str
+    url: str
+    thumbnail: str
+
+class Output(BaseModel):
+  percentage: str
+  explanation: str
+  tldr: str
+
+class URLItem(BaseModel):
+    url: str
+
