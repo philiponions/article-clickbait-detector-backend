@@ -12,6 +12,8 @@ import ai
 load_dotenv()
 mongo_uri = os.getenv("MONGO_URI")
 
+gem_key = os.getenv("KEY")
+
 client = MongoClient(mongo_uri)
 db = client["main"]
 
@@ -58,7 +60,7 @@ def generate_report(item: URLItem):
 
     '''
 
-    client = genai.Client(api_key="AIzaSyApK9yImqBxE6WOh470g6dxeEbaDkAd6kw")
+    client = genai.Client(api_key=gem_key)
     response = client.models.generate_content(
         model="gemini-2.0-flash", contents=prompt
     )
@@ -75,7 +77,7 @@ def generate_summary(content: ContentItem):
     sum_prompt = f'''Provide a comprehensive summary of the given article? The summary should cover all the key points and main ideas presented in the original text in an organised format, while also condensing the information into a concise and easy-to-understand format. Please ensure that the summary includes relevant details and examples that support the main ideas, while avoiding any unnecessary information or repetition. The length of the summary should be about 100 words, providing a clear and accurate overview without omitting any important information
     Article: {content}
     '''
-    client = genai.Client(api_key="AIzaSyApK9yImqBxE6WOh470g6dxeEbaDkAd6kw")
+    client = genai.Client(api_key=gem_key)
     response = client.models.generate_content(
         model="gemini-2.0-flash", contents=sum_prompt
     )
