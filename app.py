@@ -25,10 +25,7 @@ def read_root():
 class URLItem(BaseModel):
     url: str
 
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
+origins = [    
     "http://localhost:3000",
 ]
 
