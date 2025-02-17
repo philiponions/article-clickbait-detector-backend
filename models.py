@@ -8,13 +8,15 @@ class VerdictEnum(str, Enum):
     MIXED = "mixed"
 
 class CommunityReport(BaseModel):
-    # thumbnail: str
-    # title: str    
+    thumbnail: str
+    title: str    
     url: str
     website: str
     percentage: int
     explanation: str
     tldr: str
+    likes: int = 0
+    dislikes: int = 0
 
 class URLItem(BaseModel):
     url: str

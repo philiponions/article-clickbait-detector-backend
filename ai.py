@@ -11,16 +11,20 @@ gem_key = os.getenv("KEY")
 
 
 def gen_report(title, content):
-    prompt = f'''You are a bot that helps frustrated users determine whether or not an article is clickbait bullshit. an article is defined as bullshit if it promises something in the title but does not actually talk about it or beats around the bush. You will be given a title and the content of the article and you will determine whether or not it's bullshit in terms of bullshit percentage. You will first give Consensus %, then a breakdown, and then a final one line TLDR.
+    prompt = f'''You are a bot that helps frustrated users determine whether or not an article is clickbait bullshit. an article is defined as bullshit if it promises something in the title but does not actually talk about it or beats around the bush. You will be given a title and the content of the article and you will determine whether or not it's bullshit in terms of bullshit percentage. You will first give Consensus percentage represented as an integer, then a breakdown represented as a string, and then a final one line TLDR represented as a string.
 
-    Example1)
+    Consensus meter:
+    0-25%: Not Clickbait (Legit)
+    26-74%: Slightly Clickbait (Mixed)
+    75-100%: Clickbait (Bullshit)
+
+    Example Input)
     Title: Bloodborne is coming to Playstation 5
-    Article: (only contains stuff about directors vaguely discussing the thought of porting it to playstation. no concrete proof of it actually happening)
-    Consensus: 70% Bullshit
+    Article: (only contains stuff about directors vaguely discussing the thought of porting it to playstation. no concrete proof of it actually happening)    
 
-    STRICTLY OUTPUT JSON ONLY AND FOLLOW THE EXAMPLE OUTPUT CLOSELY
+    STRICTLY OUTPUT JSON ONLY AND FOLLOW THE EXAMPLE OUTPUT CLOSELY    
 
-    Example Output) 
+    Example Output1) 
 
     {{
         "percentage": 85,
@@ -28,10 +32,17 @@ def gen_report(title, content):
         "tldr": "Article provides no release date update, despite promising one in the title; pure clickbait"
     }}
 
+    Example Output2) 
+    {{
+        "percentage": 60,
+        "explanation": "The title is slightly clickbait because it confirms that Marvel Rivals devs are 'open' to a Switch 2 port and have dev kits. While technically true, the body of the article reveals that this openness is contingent on the Switch 2 providing 'great performance.' It is not a confirmation that the game is coming, just that they are considering it. There is no concrete announcement, just 'openness' and exploration.",
+        "tldr": "Developers are 'open' to porting Marvel Rivals to Switch 2 if the console can handle it, but no port is confirmed."
+    }}
+
     Here's an actual article:
     Title:  {title}
 
-    Content: {content}
+    Content: {content}    
 
     '''
 
