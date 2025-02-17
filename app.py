@@ -12,6 +12,7 @@ import json
 from ai import gen_report, gen_summary
 from models import *
 import requests
+from scraper import Scraper
 
 load_dotenv()
 mongo_uri = os.getenv("MONGO_URI")
@@ -126,6 +127,15 @@ def react_to_report(report_id: str, reaction: str):
         raise HTTPException(status_code=404, detail="Report not found")
     
     return {"message": f"Report {reaction}d successfully"}
+
+@app.post("/scrape-data/")
+def scrape(url :str):
+    title, thumbnail_url, article_text = Scraper(url)
+    return{
+            "title": title, 
+            "thumbnail_url": thumbnail_url,
+            "data": article_text
+            }
 
 @app.get("/reports/")
 def get_reports():
