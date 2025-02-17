@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from ai import gen_report, gen_summary
 from models import *
+from scraper import Scraper
 
 load_dotenv()
 mongo_uri = os.getenv("MONGO_URI")
@@ -84,6 +85,15 @@ def add_report(report: CommunityReport):
     result = reports_collection.insert_one(report_dict)
     report_dict["_id"] = str(result.inserted_id)
     return {"message": "Report added", "report": convert_object_id(report_dict)}
+
+@app.post("/scrape-data/")
+def scrape(url :str):
+    title, thumbnail_url, article_text = Scraper(url)
+    return{
+            "title": title, 
+            "thumbnail_url": thumbnail_url,
+            "article_text": article_text
+            }
 
 @app.get("/reports/")
 def get_reports():
